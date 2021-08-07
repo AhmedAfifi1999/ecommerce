@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained('categories')->restrictOnDelete();
             $table->text('description')->nullable();
             $table->string('image_path')->nullable();
+            $table->string('sku')->nullable();// product code
             $table->unsignedFloat('price')->default(0);
             $table->unsignedFloat('sale_price')->default(0);
             $table->enum('status', ['Active', 'draft']);
