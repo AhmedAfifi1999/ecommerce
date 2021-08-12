@@ -15,8 +15,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+//        $categories = Category::paginate(10);
         $categories = Category::all();
-
         return view('admin.categories.index',
             [
                 'categories' => $categories
@@ -31,7 +31,8 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.categories.create');
     }
 
     /**

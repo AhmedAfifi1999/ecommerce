@@ -26,6 +26,7 @@ class CategoryFactory extends Factory
     {
         $status=['Active','draft'];
         $category = DB::table('categories')->inRandomOrder()->limit(1)->first(['id']);
+   //     $category=Category::all()->inRandomOrder()->limit(1)->first(['id']);
         $name = $this->faker->words(2, true);
         return [
             'slug' => Str::slug($name),
