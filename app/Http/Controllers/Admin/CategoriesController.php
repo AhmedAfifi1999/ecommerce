@@ -34,7 +34,8 @@ class CategoriesController extends Controller
     {
 
         $parents = Category::all();
-        return view('admin.categories.create', compact('parents'));
+        $category = new Category();
+        return view('admin.categories.create', compact('category','parents'));
     }
 
     /**
@@ -46,18 +47,19 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $slug = Str::slug($request->post('name'));
-
-        $category = Category::create([
-            'name' => $request->post('name'),
-            'parent_id' => $request->post('parent_id'),
-            'description' => $request->input('description'),
-            'slug' => $slug,
-            'status' => $request->input('status') ? $request->input('status') : 'Active'
-
+        $request->merge([
+            'slug' => $slug
         ]);
-        dd($category);
+        $category = Category::create($request->all());
+//        $category = Category::create([
+//            'name' => $request->post('name'),
+//            'parent_id' => $request->post('parent_id'),
+//            'description' => $request->input('description'),
+//            'slug' => $slug,
+//            'status' => $request->input('status') ? $request->input('status') : 'Active'
+//        ]);
 
-        return redirect(route('categories.index'));
+        return redirect()->route('categories.index');
 
 
     }
@@ -81,7 +83,11 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $category = Category::find($id);
+        $parents = Category::where('id', '<>', $id)->get();
+
+        return view('admin.categories.edit', compact('category', 'parents'));
     }
 
     /**
@@ -93,7 +99,10 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+//        Category::where('id', $id)->update($request->all());
+        Category::where('id', '=', $id)->update($request->all());
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -104,6 +113,9 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+//        Category::where('id', '=', $id)->delete();
+        Category::destroy($id);
+        return redirect()->route('categories.index')
+            ->with('success','Category Deleted!');
     }
 }

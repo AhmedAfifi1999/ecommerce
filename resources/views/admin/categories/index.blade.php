@@ -27,6 +27,8 @@
                     <th>ParentID</th>
                     <th>Status</th>
                     <th>Created At</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,6 +40,16 @@
                         <td>{{$category->parent_id}}</td>
                         <td>{{$category->status}}</td>
                         <td>{{$category->created_at}}</td>
+                        <td><a class="btn btn-sm btn-dark" href="{{route('categories.edit',$category->id)}}">Edit</a>
+                        </td>
+                        <td>
+                            <form action="{{route('categories.destroy',$category->id)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
