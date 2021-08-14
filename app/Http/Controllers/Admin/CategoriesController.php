@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -35,7 +36,7 @@ class CategoriesController extends Controller
 
         $parents = Category::all();
         $category = new Category();
-        return view('admin.categories.create', compact('category','parents'));
+        return view('admin.categories.create', compact('category', 'parents'));
     }
 
     /**
@@ -44,20 +45,34 @@ class CategoriesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
+//        $rules = [
+//            'name' => 'required|string|max:255|min:2|unique:categories,id',
+//            'parent_id' => 'nullable|int|exists:categories,id',
+//            'description' => 'nullable|min:5',
+//            'status' => 'required|in:active,draft',
+//            'image_path' => 'nullable|image|min_width=300'
+//        ];
+//
+//
+//        $this->validate($request, $rules);
+
+
         $slug = Str::slug($request->post('name'));
         $request->merge([
             'slug' => $slug
         ]);
-        $category = Category::create($request->all());
-//        $category = Category::create([
-//            'name' => $request->post('name'),
-//            'parent_id' => $request->post('parent_id'),
-//            'description' => $request->input('description'),
-//            'slug' => $slug,
-//            'status' => $request->input('status') ? $request->input('status') : 'Active'
-//        ]);
+        $request->except('_token');
+
+//        $category = Category::create($request->all());
+        $category = Category::create([
+            'name' => $request->post('name'),
+            'parent_id' => $request->post('parent_id'),
+            'description' => $request->input('description'),
+            'slug' => $slug,
+            'status' => $request->input('status') ? $request->input('status') : 'Active'
+        ]);
 
         return redirect()->route('categories.index');
 
@@ -97,10 +112,27 @@ class CategoriesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
+//        $rules = [
+//            'name' => 'required|string|max:255|min:2|unique:categories,id',
+//            'parent_id' => 'nullable|int|exists:categories,id',
+//            'description' => 'nullable|min:5',
+//            'status' => 'required|in:active,draft',
+//            'image_path' => 'nullable|image|min_width=300'
+//        ];
+//
+//        $message = [
+//            'name.required' => 'اسم التصنيف مطلوب',
+//            'parent_id.exists' => 'تصنفي يجب ان يكون موجود مسبقا ',
+//            'status.required' => 'الحالة مطلوبة'
+//        ];
+//        $this->validate($request, $rules, $message);
+
+        $data = request()->except(['_token', '_method']);
+
 //        Category::where('id', $id)->update($request->all());
-        Category::where('id', '=', $id)->update($request->all());
+        Category::where('id', '=', $id)->update($data);
 
         return redirect()->route('categories.index');
     }
@@ -116,6 +148,6 @@ class CategoriesController extends Controller
 //        Category::where('id', '=', $id)->delete();
         Category::destroy($id);
         return redirect()->route('categories.index')
-            ->with('success','Category Deleted!');
+            ->with('success', 'Category Deleted!');
     }
 }
