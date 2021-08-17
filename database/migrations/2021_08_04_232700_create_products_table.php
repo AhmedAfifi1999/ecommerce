@@ -21,10 +21,10 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->string('image_path')->nullable();
             $table->string('sku')->nullable();// product code
-            $table->unsignedFloat('price')->default(0);
-            $table->unsignedFloat('sale_price')->default(0);
+            $table->unsignedFloat('price')->nullable()->default(0);
+            $table->unsignedFloat('sale_price')->nullable()->default(0);
             $table->enum('status', ['Active', 'draft']);
-            $table->unsignedSmallInteger('quantity');
+            $table->unsignedSmallInteger('quantity')->nullable();
             $table->unsignedFloat('width')->nullable();
             $table->unsignedFloat('height')->nullable();
             $table->unsignedFloat('weight')->nullable();

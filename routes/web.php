@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriesController;
-
+use App\Http\Controllers\Admin\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +29,4 @@ Route::get('admin/categories/{id}/edit', [CategoriesController::class, 'edit'])-
 Route::put('admin/categories/{id}', [CategoriesController::class, 'update'])->name('categories.update');
 Route::delete('admin/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 
-//Route::resource('admin/categories', CategoriesController::class);
+Route::resource('admin/products', ProductController::class);
