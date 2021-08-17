@@ -42,26 +42,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'name' => 'required|string|max:255|min:2|unique:products,id',
-            'category_id' => 'nullable|int|exists:categories,id',
-            'description' => 'nullable|min:5',
-            'price' => 'nullable|numeric',
-            'sale_price' => 'nullable|numeric',
-            'quantity' => 'nullable|numeric',
-            'width' => 'nullable|numeric',
-            'height' => 'nullable|numeric',
-            'weight' => 'nullable|numeric',
-            'length' => 'nullable|numeric',
-            'image_path' => 'nullable|image|min_width=300'
-        ];
-
         $request->merge([
             'slug' => Str::slug($request->input('name'))
         ]);
+        $this->validate($request, Product::validate());
 
-        $this->validate();
+        $product = Product::create($request->all());
 
+        return redirect()->route('products.index')->with([
+            'message' => 'Product' . $product->name . 'Store Successfully'
+        ]);
     }
 
     /**
@@ -72,7 +62,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return response()->json(['product' => $product]);
     }
 
     /**
@@ -98,7 +89,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = request()->except(['_token', '_method']);
+        $this->validate($request, Product::validate());
+        $product = Product::where('id', $id)->update($data);
+        return redirect()->route('products.index')->with([
+            'message' => 'Product Updated Successfully'
+        ]);
     }
 
     /**

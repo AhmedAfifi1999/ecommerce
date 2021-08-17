@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Product price</label>
-            <input type="text" class="form-control @error('price')  is-invalid @enderror" name="price" id="price"
+            <input type="number" class="form-control @error('price')  is-invalid @enderror" name="price" id="price"
                    value="{{old('name',$product->price)}}"
                    placeholder="Enter price">
             @error('price')
@@ -51,7 +51,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Product sale price</label>
-            <input type="text" class="form-control @error('sale_price')  is-invalid @enderror" name="sale_price"
+            <input type="number" class="form-control @error('sale_price')  is-invalid @enderror" name="sale_price"
                    id="sale_price"
                    value="{{old('name',$product->sale_price)}}"
                    placeholder="Enter sale_price">
@@ -61,7 +61,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Product quantity</label>
-            <input type="text" class="form-control @error('quantity')  is-invalid @enderror" name="quantity"
+            <input type="number" class="form-control @error('quantity')  is-invalid @enderror" name="quantity"
                    id="quantity"
                    value="{{old('name',$product->quantity)}}"
                    placeholder="Enter quantity">
@@ -71,7 +71,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Product width</label>
-            <input type="text" class="form-control @error('width')  is-invalid @enderror" name="width" id="width"
+            <input type="number" class="form-control @error('width')  is-invalid @enderror" name="width" id="width"
                    value="{{old('name',$product->width)}}"
                    placeholder="Enter width">
             @error('width')
@@ -81,7 +81,7 @@
 
         <div class="form-group">
             <label for="exampleInputEmail1">Product height</label>
-            <input type="text" class="form-control @error('height')  is-invalid @enderror" name="height" id="height"
+            <input type="number" class="form-control @error('height')  is-invalid @enderror" name="height" id="height"
                    value="{{old('name',$product->height)}}"
                    placeholder="Enter height">
             @error('height')
@@ -90,7 +90,7 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Product weight</label>
-            <input type="text" class="form-control @error('weight')  is-invalid @enderror" name="weight" id="weight"
+            <input type="number" class="form-control @error('weight')  is-invalid @enderror" name="weight" id="weight"
                    value="{{old('name',$product->weight)}}"
                    placeholder="Enter weight">
             @error('weight')
@@ -100,7 +100,7 @@
 
         <div class="form-group">
             <label for="exampleInputEmail1">Product length</label>
-            <input type="text" class="form-control @error('length')  is-invalid @enderror" name="length" id="length"
+            <input type="number" class="form-control @error('length')  is-invalid @enderror" name="length" id="length"
                    value="{{old('name',$product->length)}}"
                    placeholder="Enter weight">
             @error('length')
