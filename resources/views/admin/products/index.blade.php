@@ -41,7 +41,7 @@
                         <td>{{$product->status}}</td>
                         <td>{{$product->created_at}}</td>
                         <td><a class="btn btn-sm btn-dark" href="{{route('products.edit',$product->id)}}">Edit</a>
-                            </td>
+                        </td>
                         <td>
                             <form action="{{route('products.destroy',$product->id)}}" method="post">
                                 @csrf
@@ -54,7 +54,7 @@
                 @endforeach
                 </tbody>
             </table>
-
+            {{$products->links()}}
         </div>
     </div>
 @endsection

@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $statusActive='Active';
+    protected $STATUS_ACTIVE='Active';
     protected $statusDraft='draft';
 
     protected $fillable=['name','slug','parent_id','description','status','image_path'];

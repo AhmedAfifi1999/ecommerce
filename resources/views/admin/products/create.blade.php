@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title','Categories Create')
+@section('title','Products Create')
 
 @section('breadcrumb')
 
@@ -12,11 +12,8 @@
     </ol>
 @endsection
 @section('content')
-
-
-
     <div class="card">
-        <form method="post" action="{{route('products.store')}}">
+        <form method="post" action="{{route('products.store')}}" enctype="multipart/form-data">
             @csrf
             @include('admin.products._form',[
     'button'=>'Add'])

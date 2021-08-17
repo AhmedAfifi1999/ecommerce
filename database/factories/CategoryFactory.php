@@ -24,6 +24,7 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        //self::STATUS_ACTIVE
         $status=['Active','draft'];
         $category = DB::table('categories')->inRandomOrder()->limit(1)->first(['id']);
    //     $category=Category::all()->inRandomOrder()->limit(1)->first(['id']);

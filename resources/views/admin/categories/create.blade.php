@@ -16,7 +16,7 @@
 
 
     <div class="card">
-        <form method="post" action="{{route('categories.store')}}">
+        <form method="post" action="{{route('categories.store')}}" enctype="multipart/form-data">
             @csrf
             @include('admin.categories._form',[
     'button'=>'Add'])

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -17,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
@@ -46,6 +47,18 @@ class ProductController extends Controller
             'slug' => Str::slug($request->input('name'))
         ]);
         $this->validate($request, Product::validate());
+
+        if ($request->hasFile('image_path')) {
+
+            $file = $request->file('image_path');
+            $path = $file->store('/',
+                [
+                    'disk' => 'uploads'
+                ]);
+            $request->merge([
+                'image_path' => $path
+            ]);
+        }
 
         $product = Product::create($request->all());
 

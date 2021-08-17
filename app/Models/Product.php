@@ -25,7 +25,7 @@ class Product extends Model
             'height' => 'nullable|numeric',
             'weight' => 'nullable|numeric',
             'length' => 'nullable|numeric',
-            'image_path' => 'nullable|image|min_width=300'
+            'image_path' => 'nullable|image'
         ];
 
     }

@@ -100,7 +100,7 @@
 
         <div class="form-group">
             <label for="exampleInputEmail1">Product length</label>
-            <input type="number" class="form-control @error('length')  is-invalid @enderror" name="length" id="length"
+            <input type="number" class="form-control " name="length" id="length"
                    value="{{old('name',$product->length)}}"
                    placeholder="Enter weight">
             @error('length')
@@ -109,16 +109,19 @@
         </div>
 
 
+
         <div class="form-group">
             <label for="exampleInputFile">Image</label>
             <div class="input-group">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="image_path" id="image_path">
                     <label class="custom-file-label" for="exampleInputFile">Choose Image</label>
+                    <input type="file" class="custom-file-input  @error('image_path')  is-invalid @enderror"" name="image_path" id="image_path">
+                    @error('image_path')
+                    <label class="invalid-feedback">{{$message}}</label>
+                    @enderror
                 </div>
             </div>
         </div>
-
         <div class="form-group">
             <label for="">Status</label>
             <div class="custom-control custom-radio">
