@@ -28,8 +28,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $product = new Product();
         $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        return view('admin.products.create', compact('categories', 'product'));
 
     }
 
