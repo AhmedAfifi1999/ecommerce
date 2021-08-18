@@ -48,9 +48,9 @@ class ProductController extends Controller
         ]);
         $this->validate($request, Product::validate());
 
-        if ($request->hasFile('image_path')) {
+        if ($request->hasFile('image')) {
 
-            $file = $request->file('image_path');
+            $file = $request->file('image');
             $path = $file->store('/',
                 [
                     'disk' => 'uploads'
@@ -102,8 +102,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = request()->except(['_token', '_method']);
         $this->validate($request, Product::validate());
+
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+            $path = $file->store('/',
+                [
+                    'disk' => 'uploads'
+                ]);
+            $request->merge([
+                'image_path' => $path
+            ]);
+        }
+        $data = request()->except(['_token', '_method', 'image']);
         $product = Product::where('id', $id)->update($data);
         return redirect()->route('products.index')->with([
             'message' => 'Product Updated Successfully'
@@ -120,6 +132,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
+        Storage::disk('uploads')->delete($product->image_path);
+
+//        unlink(public_path('uploads/' . $product->image_path)); //Native php
         return redirect()->route('products.index')->with([
             'message' => 'product ' . $product->name . ' deleted Successfully'
         ]);

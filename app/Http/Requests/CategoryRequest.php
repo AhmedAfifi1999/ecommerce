@@ -30,7 +30,7 @@ class CategoryRequest extends FormRequest
             'description' => ['nullable', 'min:5',
                 new Filter(['god', 'shut'])],
             'status' => 'required|in:active,draft',
-            'image_path' => 'nullable|image|min_width=300'
+            'image_path' => 'nullable|image'
         ];
     }
 

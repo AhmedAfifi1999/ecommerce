@@ -63,16 +63,27 @@ class CategoriesController extends Controller
         $request->merge([
             'slug' => $slug
         ]);
+        if ($request->hasFile('image_path')) {
+
+            $file = $request->file('image_path');
+            $path = $file->store('/',
+                [
+                    'disk' => 'uploads'
+                ]);
+            $request->merge([
+                'image_path' => $path
+            ]);
+        }
         $request->except('_token');
 
-//        $category = Category::create($request->all());
-        $category = Category::create([
-            'name' => $request->post('name'),
-            'parent_id' => $request->post('parent_id'),
-            'description' => $request->input('description'),
-            'slug' => $slug,
-            'status' => $request->input('status') ? $request->input('status') : 'Active'
-        ]);
+        $category = Category::create($request->all());
+//        $category = Category::create([
+//            'name' => $request->post('name'),
+//            'parent_id' => $request->post('parent_id'),
+//            'description' => $request->input('description'),
+//            'slug' => $slug,
+//            'status' => $request->input('status') ? $request->input('status') : 'Active'
+//        ]);
 
         return redirect()->route('categories.index');
 

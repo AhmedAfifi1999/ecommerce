@@ -108,15 +108,13 @@
             @enderror
         </div>
 
-
-
         <div class="form-group">
             <label for="exampleInputFile">Image</label>
             <div class="input-group">
                 <div class="custom-file">
                     <label class="custom-file-label" for="exampleInputFile">Choose Image</label>
-                    <input type="file" class="custom-file-input  @error('image_path')  is-invalid @enderror"" name="image_path" id="image_path">
-                    @error('image_path')
+                    <input type="file" class="custom-file-input  @error('image')  is-invalid @enderror" name="image" id="image">
+                    @error('image')
                     <label class="invalid-feedback">{{$message}}</label>
                     @enderror
                 </div>

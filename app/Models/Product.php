@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'category_id', 'description', 'price', 'sale_price',
-        'quantity', 'width', 'height', 'weight', 'length', 'image_path','slug'];
+        'quantity', 'width', 'height', 'weight', 'length', 'image_path', 'slug'];
 
     public static function validate()
     {
@@ -25,7 +25,7 @@ class Product extends Model
             'height' => 'nullable|numeric',
             'weight' => 'nullable|numeric',
             'length' => 'nullable|numeric',
-            'image_path' => 'nullable|image'
+            'image' => 'nullable|image'
         ];
 
     }

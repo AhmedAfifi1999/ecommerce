@@ -34,7 +34,9 @@
                 <tbody>
                 @foreach($products as $product)
                     <tr>
-                        <td>{{$product->id}}</td>
+
+                        <td><img src="{{asset('uploads/'.$product->image_path)}}" width="100"></td>
+                        {{--                        <td><img src="{{$product->image_path}}" width="100" height="100"></td>--}}
                         <td>{{$product->name}}</td>
                         <td>{{$product->slug}}</td>
                         <td>{{$product->category_id}}</td>
