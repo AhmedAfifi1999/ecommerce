@@ -10,8 +10,11 @@
     </ol>
 @endsection
 @section('content')
+    @if('')
+        <div class="alert-success">
 
-
+        </div>
+    @endif
 
     <br>
 

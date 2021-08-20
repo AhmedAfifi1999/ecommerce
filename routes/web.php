@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,13 @@ use App\Http\Controllers\Admin\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 Route::get('/admin', function () {
     return view('layouts.admin');
 });
@@ -29,4 +37,4 @@ Route::get('admin/categories/{id}/edit', [CategoriesController::class, 'edit'])-
 Route::put('admin/categories/{id}', [CategoriesController::class, 'update'])->name('categories.update');
 Route::delete('admin/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 
-Route::resource('admin/products', ProductController::class);
+Route::resource('admin/products', ProductController::class)->middleware(['auth','password.confirm']);

@@ -24,8 +24,9 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('id');
         return [
-            'name' => 'required|string|max:255|min:2|unique:categories,id',
+            'name' => 'required|string|max:255|min:2|unique:categories,id,' . $id,
             'parent_id' => 'nullable|int|exists:categories,id',
             'description' => ['nullable', 'min:5',
                 new Filter(['god', 'shut'])],
