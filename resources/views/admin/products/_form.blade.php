@@ -20,16 +20,7 @@
             @enderror
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Category</label>
-            <select class="form-control" name="category_id">
-                <option value="">No parent</option>
-                @foreach($categories as $category)
-                    <option value="{{$category->id}}"
-                            @if(old('category_id',$category->id)==$product->id) selected @endif>{{$category->name}}</option>
-
-                @endforeach
-            </select>
-
+            <x-form-select label="Category" name="category_id" :options="$categories" :selected="$product->category_id"/>
 
         </div>
         <div class="form-group">
@@ -80,32 +71,15 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleInputEmail1">Product height</label>
-            <input type="number" class="form-control @error('height')  is-invalid @enderror" name="height" id="height"
-                   value="{{old('name',$product->height)}}"
-                   placeholder="Enter height">
-            @error('height')
-            <label class="invalid-feedback">{{$message}}</label>
-            @enderror
+            <x-form-input type="number" name="height" lable="Product height" :value="$product->height"/>
+
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Product weight</label>
-            <input type="number" class="form-control @error('weight')  is-invalid @enderror" name="weight" id="weight"
-                   value="{{old('name',$product->weight)}}"
-                   placeholder="Enter weight">
-            @error('weight')
-            <label class="invalid-feedback">{{$message}}</label>
-            @enderror
+            <x-form-input type="number" name="weight" lable="Product weight" :value="$product->weight"/>
         </div>
 
         <div class="form-group">
-            <label for="exampleInputEmail1">Product length</label>
-            <input type="number" class="form-control " name="length" id="length"
-                   value="{{old('name',$product->length)}}"
-                   placeholder="Enter weight">
-            @error('length')
-            <label class="invalid-feedback">{{$message}}</label>
-            @enderror
+            <x-form-input type="number" name="length" lable="length" :value="$product->length"/>
         </div>
 
         <div class="form-group">
@@ -113,7 +87,8 @@
             <div class="input-group">
                 <div class="custom-file">
                     <label class="custom-file-label" for="exampleInputFile">Choose Image</label>
-                    <input type="file" class="custom-file-input  @error('image')  is-invalid @enderror" name="image" id="image">
+                    <input type="file" class="custom-file-input  @error('image')  is-invalid @enderror" name="image"
+                           id="image">
                     @error('image')
                     <label class="invalid-feedback">{{$message}}</label>
                     @enderror

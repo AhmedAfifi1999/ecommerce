@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $product = new Product();
-        $categories = Category::all();
+        $categories = Category::pluck('name','id');
         return view('admin.products.create', compact('categories', 'product'));
 
     }
@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function edit($id)
     {
 
-        $categories = Category::all();
+        $categories = Category::pluck('name','id');
         $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('categories', 'product'));
     }
