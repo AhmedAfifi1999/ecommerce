@@ -7,14 +7,17 @@ use Illuminate\View\Component;
 
 class StoreFrontlayout extends Component
 {
+
+    public $title;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title = '')
     {
-
+        $this->title = $title;
     }
 
     /**
@@ -24,6 +27,9 @@ class StoreFrontlayout extends Component
      */
     public function render()
     {
-        return view('layouts.store-front');
+        return view('layouts.store-front', [
+            'title' => $this->title
+
+        ]);
     }
 }

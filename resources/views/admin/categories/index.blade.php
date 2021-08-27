@@ -10,9 +10,10 @@
     </ol>
 @endsection
 @section('content')
-    @if('')
-        <div class="alert-success">
 
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        <div class="alert alert-info">
+            {{ \Illuminate\Support\Facades\Session::get('success') }}
         </div>
     @endif
 

@@ -9,10 +9,17 @@
         <li class="breadcrumb-item active">Products</li>
     </ol>
 @endsection
+
+
+
 @section('content')
 
 
-
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        <div class="alert alert-info">
+            {{ \Illuminate\Support\Facades\Session::get('success') }}
+        </div>
+    @endif
     <br>
 
     <div class="card">

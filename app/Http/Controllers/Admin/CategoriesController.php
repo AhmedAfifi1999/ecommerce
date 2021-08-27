@@ -161,4 +161,10 @@ class CategoriesController extends Controller
         return redirect()->route('categories.index')
             ->with('success', 'Category Deleted!');
     }
+
+    public function forceDelete($id = null)
+    {
+
+
+    }
 }

@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('name');
-            $table->foreignId('parent_id')->nullable()->constrained('categories','id')->nullOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('categories','id')->restrictOnDelete();
             // cascadeOnDelete
             $table->text('description');
             $table->string('image_path')->nullable();

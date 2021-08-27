@@ -8,6 +8,13 @@
     </div>
     @enderror
 
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        <div class="alert alert-info">
+            {{ \Illuminate\Support\Facades\Session::get('success') }}
+        </div>
+    @endif
+
+
 
     <div class="card-body">
         <div class="form-group">
@@ -40,7 +47,7 @@
             <p class="invalid-feedback">{{$message}}</p>
             @enderror
         </div>
-        
+
         <div class="form-group">
             <label for="exampleInputFile">Image</label>
             <div class="input-group">

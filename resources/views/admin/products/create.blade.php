@@ -11,6 +11,8 @@
 
     </ol>
 @endsection
+
+
 @section('content')
     <div class="card">
         <form method="post" action="{{route('products.store')}}" enctype="multipart/form-data">

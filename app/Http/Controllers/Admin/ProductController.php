@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $product = new Product();
-        $categories = Category::pluck('name','id');
+        $categories = Category::pluck('name', 'id');
         return view('admin.products.create', compact('categories', 'product'));
 
     }
@@ -63,7 +63,7 @@ class ProductController extends Controller
         $product = Product::create($request->all());
 
         return redirect()->route('products.index')->with([
-            'message' => 'Product' . $product->name . 'Store Successfully'
+            'success' => 'Product' . $product->name . 'Store Successfully'
         ]);
     }
 
@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function edit($id)
     {
 
-        $categories = Category::pluck('name','id');
+        $categories = Category::pluck('name', 'id');
         $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('categories', 'product'));
     }
@@ -118,7 +118,7 @@ class ProductController extends Controller
         $data = request()->except(['_token', '_method', 'image']);
         $product = Product::where('id', $id)->update($data);
         return redirect()->route('products.index')->with([
-            'message' => 'Product Updated Successfully'
+            'success' => 'Product Updated Successfully'
         ]);
     }
 
@@ -132,11 +132,28 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        Storage::disk('uploads')->delete($product->image_path);
+//        Storage::disk('uploads')->delete($product->image_path);
 
 //        unlink(public_path('uploads/' . $product->image_path)); //Native php
         return redirect()->route('products.index')->with([
-            'message' => 'product ' . $product->name . ' deleted Successfully'
+            'success' => 'product ' . $product->name . ' deleted to trash Successfully'
         ]);
+    }
+
+    public function forceDelete($id = null)
+    {
+        if($id!=null){
+        $product = Product::onlyTrashed()->find($id);
+        $product->forceDelete();
+        Storage::disk('uploads')->delete($product->image_path);
+        }else{
+            $products = Product::onlyTrashed()->get();
+            $products->forceDelete();
+            Storage::disk('uploads')->delete($products->image_path);//check if get some errors or No >
+        }
+        return redirect()->route('products.index')->with([
+            'success' => 'product ' . $product->name . ' deleted For ever Successfully'
+        ]);
+
     }
 }

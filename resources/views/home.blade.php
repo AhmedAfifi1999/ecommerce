@@ -1,4 +1,4 @@
-<x-store-front-layout>
+<x-store-front-layout title="Home">
 
 
     <div class="ps-banner">

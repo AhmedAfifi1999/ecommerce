@@ -8,6 +8,11 @@
     </div>
     @enderror
 
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        <div class="alert alert-info">
+            {{ \Illuminate\Support\Facades\Session::get('success') }}
+        </div>
+    @endif
 
     <div class="card-body">
         <div class="form-group">
