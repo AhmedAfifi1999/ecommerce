@@ -43,9 +43,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge([
-            'slug' => Str::slug($request->input('name'))
-        ]);
+//        $request->merge([
+//            'slug' => Str::slug($request->input('name'))
+//        ]);
         $this->validate($request, Product::validate());
 
         if ($request->hasFile('image')) {
@@ -122,6 +122,18 @@ class ProductController extends Controller
         ]);
     }
 
+    public function restore($id = null)
+    {
+        if ($id != null) {
+            $product = Product::onlyTrashed()->findOrFail($id)->restore();
+        }
+        $product = Product::onlyTrashed()->restore();
+
+        return redirect()->route('products.index')->with([
+            'success' => 'Product restored Successfully'
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -140,13 +152,19 @@ class ProductController extends Controller
         ]);
     }
 
+    public function trash()
+    {
+        $products = Product::onlyTrashed()->paginate(10);
+        return view('admin.products.trash', compact('products'));
+    }
+
     public function forceDelete($id = null)
     {
-        if($id!=null){
-        $product = Product::onlyTrashed()->find($id);
-        $product->forceDelete();
-        Storage::disk('uploads')->delete($product->image_path);
-        }else{
+        if ($id != null) {
+            $product = Product::onlyTrashed()->find($id);
+            $product->forceDelete();
+            Storage::disk('uploads')->delete($product->image_path);
+        } else {
             $products = Product::onlyTrashed()->get();
             $products->forceDelete();
             Storage::disk('uploads')->delete($products->image_path);//check if get some errors or No >

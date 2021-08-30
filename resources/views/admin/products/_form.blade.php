@@ -66,13 +66,8 @@
             @enderror
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Product width</label>
-            <input type="number" class="form-control @error('width')  is-invalid @enderror" name="width" id="width"
-                   value="{{old('name',$product->width)}}"
-                   placeholder="Enter width">
-            @error('width')
-            <label class="invalid-feedback">{{$message}}</label>
-            @enderror
+            <x-form-input type="number" name="width" lable="Product width" :value="$product->width"/>
+
         </div>
 
         <div class="form-group">

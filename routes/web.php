@@ -36,5 +36,9 @@ Route::get('admin/categories/{id}', [CategoriesController::class, 'show'])->name
 Route::get('admin/categories/{id}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
 Route::put('admin/categories/{id}', [CategoriesController::class, 'update'])->name('categories.update');
 Route::delete('admin/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
+//-- Products
+Route::get('admin/products/trash', [ProductController::class, 'trash'])->name('products.trash');
+Route::delete('admin/products/trash/{id?}', [ProductController::class, 'forceDelete'])->name('products.force-delete');
+Route::put('admin/products/trash/{id?}', [ProductController::class, 'restore'])->name('products.restore');
 Route::resource('admin/products', ProductController::class);
 //->middleware(['auth','password.confirm']);

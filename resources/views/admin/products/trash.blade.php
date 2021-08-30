@@ -22,11 +22,10 @@
     @endif
     <br>
 
-
     <div class="card">
         <div class="d-flex justify-content-center">
-            <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">Create</a>
-            <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">Trash</a>
+            <a class="btn btn-sm btn-outline-primary" href="{{route('products.create')}}">Restore all</a>
+            <a class="btn btn-sm btn-outline-dark" href="{{route('products.trash')}}">Delete All</a>
 
         </div>
 
@@ -39,7 +38,6 @@
                     <th>Name</th>
                     <th>Slug</th>
                     <th>Category</th>
-                    <th>price</th>
                     <th>Status</th>
                     <th>Created At</th>
                     <th></th>
@@ -55,13 +53,18 @@
                         <td>{{$product->name}}</td>
                         <td>{{$product->slug}}</td>
                         <td>{{$product->category_id}}</td>
-                        <td>{{$product->formatted_price}}</td>
                         <td>{{$product->status}}</td>
                         <td>{{$product->created_at}}</td>
-                        <td><a class="btn btn-sm btn-dark" href="{{route('products.edit',$product->id)}}">Edit</a>
+                        <td>
+
+                            <form action="{{route('products.restore',$product->id)}}" method="post">
+                                @csrf
+                                @method('put')
+                                <button class="btn btn-sm btn-warning">Restore</button>
+                            </form>
                         </td>
                         <td>
-                            <form action="{{route('products.destroy',$product->id)}}" method="post">
+                            <form action="{{route('products.force-delete',$product->id)}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-sm btn-danger">Delete</button>

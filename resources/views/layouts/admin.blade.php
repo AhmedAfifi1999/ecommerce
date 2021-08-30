@@ -263,12 +263,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="col-lg-12">
 
                         @yield('content')
+
                     </div>
                     <!-- /.col-md-6 -->
                     <!-- /.col-md-6 -->
                 </div>
                 <!-- /.row -->
-            </div><!-- /.container-fluid -->$path
+            </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->
     </div>
