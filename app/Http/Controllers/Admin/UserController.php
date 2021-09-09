@@ -65,7 +65,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        $roles=new Role();
+        $userRole = $user->roles->pluck('name')->all();
+        return view('admin.users.show',compact('user','roles','userRole'));
     }
 
     /**
@@ -78,8 +80,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
-
+        $userRole = $user->roles->pluck('name')->all();
         return view('admin.users.edit',compact('user','roles','userRole'));
     }
 
@@ -112,7 +113,7 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('users.index')
             ->with('success','User updated successfully');
     }
 
