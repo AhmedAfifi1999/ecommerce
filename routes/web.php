@@ -3,8 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\HomeController;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +23,7 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
+
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
@@ -42,3 +47,8 @@ Route::delete('admin/products/trash/{id?}', [ProductController::class, 'forceDel
 Route::put('admin/products/trash/{id?}', [ProductController::class, 'restore'])->name('products.restore');
 Route::resource('admin/products', ProductController::class);
 //->middleware(['auth','password.confirm']);
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('admin/roles', RoleController::class);
+    Route::resource('admin/users', UserController::class);
+});

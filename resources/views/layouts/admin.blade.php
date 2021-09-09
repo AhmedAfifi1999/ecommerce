@@ -230,6 +230,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('users.index')}}" class="nav-link">
+                            <img  src="{{asset('/img/shield.png')}} " width="25px" height="25px">
+                            <p>
+                                permission
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
