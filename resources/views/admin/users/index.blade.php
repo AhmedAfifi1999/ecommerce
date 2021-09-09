@@ -58,7 +58,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
 
                             </td>
                             <td>

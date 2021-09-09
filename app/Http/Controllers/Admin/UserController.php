@@ -15,8 +15,8 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('admin.users.index',compact('data'))
+        $data = User::orderBy('id', 'DESC')->paginate(5);
+        return view('admin.users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -27,14 +27,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
-        return view('admin.users.create',compact('roles'));
+        $user = new User();
+        $userRole =new Role();
+        $roles = Role::pluck('name', 'name')->all();
+        return view('admin.users.create', compact('roles', 'user','userRole'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -53,80 +55,80 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('admin.users.index')
-            ->with('success','User created successfully');
+            ->with('success', 'User created successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $user = User::find($id);
-        $roles=new Role();
+        $roles = new Role();
         $userRole = $user->roles->pluck('name')->all();
-        return view('admin.users.show',compact('user','roles','userRole'));
+        return view('admin.users.show', compact('user', 'roles', 'userRole'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name')->all();
-        return view('admin.users.edit',compact('user','roles','userRole'));
+        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
-        if(!empty($input['password'])){
+        if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));
+        } else {
+            $input = Arr::except($input, array('password'));
         }
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-            ->with('success','User updated successfully');
+            ->with('success', 'User updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         User::find($id)->delete();
         return redirect()->route('admin.users.index')
-            ->with('success','User deleted successfully');
+            ->with('success', 'User deleted successfully');
     }
 }
